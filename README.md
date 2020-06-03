@@ -1,14 +1,14 @@
 # OptiFind
 
-Python wrapper script for catalogue-based source finding with SoFiA 2.
-Note that the installation of **SoFiA 2** is a prerequisite for OptiFind.
-SoFiA 2 can be obtained from https://github.com/SoFiA-Admin/SoFiA-2.
+ Python wrapper script for catalogue-based source finding with SoFiA 2.
+ Note that the installation of **SoFiA 2** is a prerequisite for OptiFind.
+ SoFiA 2 can be obtained from https://github.com/SoFiA-Admin/SoFiA-2.
 
 ## Usage
 
-```
-optifind.py <par_file> <source_list> <r_spat> <r_spec> [<sofia_exe>]
-```
+ ```
+ optifind.py <par_file> <source_list> <r_spat> <r_spec> [<sofia_exe>]
+ ```
 
  ## Arguments:
  
@@ -80,5 +80,5 @@ optifind.py <par_file> <source_list> <r_spat> <r_spec> [<sofia_exe>]
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License  along with
-this program. If not, see http://www.gnu.org/licenses/.
+ You should have received a copy of the GNU General Public License  along with
+ this program. If not, see http://www.gnu.org/licenses/.
