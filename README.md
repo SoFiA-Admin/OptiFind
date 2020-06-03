@@ -4,6 +4,14 @@
  Note that the installation of **SoFiA 2** is a prerequisite for OptiFind.
  SoFiA 2 can be obtained from https://github.com/SoFiA-Admin/SoFiA-2.
 
+## Requirements
+
+OptiFind depends on the following software packages:
+
+* SoFiA 2
+* Python 3
+* Astropy
+
 ## Usage
 
  ```
@@ -57,10 +65,10 @@
  which are the default units defined by the FITS standard.
 
  Separate output catalogues and products will be created  for each SoFiA 2 run.
- They will be named  either  `optifind` + suffix  or  output.filename + suffix,
- depending  on whether an output file name  was defined  in the parameter file.
- The suffix  will be  an underscore  followed by the source ID  provided in the
- catalogue file.
+ Their base name will be either `optifind` + suffix or output.filename + suffix
+ depending on whether or not  an output file name  was defined in the parameter
+ file.  The suffix will be an underscore  followed by the source ID provided in
+ the catalogue file.
 
  In addition to the individual output catalogues  from each run,  OptiFind will
  also create a single, merged catalogue called  `optifind_merged_catalogue.txt`
