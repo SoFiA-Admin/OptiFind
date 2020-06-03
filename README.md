@@ -53,18 +53,18 @@ optifind.py <par_file> <source_list> <r_spat> <r_spec> [<sofia_exe>]
  Source 2, 180.9, 62.3, 1200000.0
  ```
  
- Here, RA and declination are in degrees,  while velocity is specified in m/s,
+ Here,  RA and declination are in degrees,  while velocity is specified in m/s,
  which are the default units defined by the FITS standard.
 
- Separate output catalogues and products will be created for each SoFiA 2 run.
- They will be named either  `optifind` + suffix  or  output.filename + suffix,
- depending on whether an output file name  was defined  in the parameter file.
- The suffix  will be an underscore  followed by the source ID  provided in the
+ Separate output catalogues and products will be created  for each SoFiA 2 run.
+ They will be named  either  `optifind` + suffix  or  output.filename + suffix,
+ depending  on whether an output file name  was defined  in the parameter file.
+ The suffix  will be  an underscore  followed by the source ID  provided in the
  catalogue file.
 
- In addition to the individual output catalogues from each run,  OptiFind will
- also create a single, merged catalogue called `optifind_merged_catalogue.txt`
- in the  same  output directory.   Note that  this feature  is currently  only
+ In addition to the individual output catalogues  from each run,  OptiFind will
+ also create a single, merged catalogue called  `optifind_merged_catalogue.txt`
+ in the  same  output directory.   Note that  this feature  is  currently  only
  available for plain-text ASCII catalogues, but not for XML or SQL catalogues.
  
  ## Copyright and licence
@@ -76,9 +76,9 @@ optifind.py <par_file> <source_list> <r_spat> <r_spec> [<sofia_exe>]
  Foundation, either version 3 of the License, or (at your option) any later
  version.
 
- This program is distributed in the hope that it will be useful, but WITHOUT ANY
- WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
- PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License  along with
 this program. If not, see http://www.gnu.org/licenses/.
