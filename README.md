@@ -10,11 +10,11 @@ optifind.py <par_file> <source_list> <r_spat> <r_spec> [<sofia_exe>]
 
  ## Arguments:
  
- * `<par_file>   `  Name of the SoFiA 2 control parameter file.
+ * `<par_file>`     Name of the SoFiA 2 control parameter file.
  * `<source_list>`  Name of the source catalogue file.
- * `<r_spat>     `  Spatial radius of sub-region in pixels.
- * `<r_spec>     `  Spectral radius of sub-region in channels.
- * `<sofia_exe>  `  Optional name of the SoFiA 2 executable. Default: sofia.
+ * `<r_spat>`       Spatial radius of sub-region in pixels.
+ * `<r_spec>`       Spectral radius of sub-region in channels.
+ * `<sofia_exe>`    Optional name of the SoFiA 2 executable. Default: sofia.
 
 ## Description
 
@@ -28,8 +28,8 @@ optifind.py <par_file> <source_list> <r_spat> <r_spec> [<sofia_exe>]
  define an output file name which will be used as the base name for all output.
  In addition,  the user must specify a source catalogue containing the position
  of each source to be searched. The catalogue must specify the world coordinate
- position of each source on a separate line. The following, comma-separated pa-
- rameters must be supplied with each source:
+ position  of each source  on a separate line.  The following,  comma-separated
+ parameters must be supplied with each source:
 
  `id, coord_1, coord_2, coord_3, ...`
 
@@ -41,19 +41,29 @@ optifind.py <par_file> <source_list> <r_spat> <r_spec> [<sofia_exe>]
 
  For example, if a cube has four axes (right ascension, declination, frequency
  and Stokes), then four coordinate values need to be provided for each source,
- and they must be given in the native units specified in the header,  e.g. de-
- grees for right ascension and Hz for frequency.
+ and they must  be given  in the native units  specified  in the header,  e.g.
+ degrees for right ascension  and Hz for frequency.  An example  for a 3D data
+ cube with RA, declination and velocity axis might look like this:
+ 
+ ```
+ # Example catalogue
+ Source 1, 180.7, 62.0, 1300000.0
+ Source 2, 180.9, 62.3, 1200000.0
+ ```
+ 
+ Here, RA and declination are in degrees,  while velocity is specified in m/s,
+ which are the default units defined by the FITS standard.
 
  Separate output catalogues and products will be created for each SoFiA 2 run.
- They will be named either "optifind" + suffix or output.filename + suffix de-
- pending on whether an output file name was defined in the parameter file. The
- suffix will be an underscore  followed by the source ID provided in the cata-
- logue file.
+ They will be named either  `optifind` + suffix  or  output.filename + suffix,
+ depending on whether an output file name  was defined  in the parameter file.
+ The suffix  will be an underscore  followed by the source ID  provided in the
+ catalogue file.
 
  In addition to the individual output catalogues from each run,  OptiFind will
- also create a single, merged catalogue called "optifind_merged_catalogue.txt"
- in the same output directory. Note that this feature is currently only avail-
- able for plain-text ASCII catalogues, but not for XML or SQL catalogues.
+ also create a single, merged catalogue called `optifind_merged_catalogue.txt`
+ in the  same  output directory.   Note that  this feature  is currently  only
+ available for plain-text ASCII catalogues, but not for XML or SQL catalogues.
  
  ## Copyright and licence
 
