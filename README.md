@@ -10,11 +10,11 @@ optifind.py <par_file> <source_list> <r_spat> <r_spec> [<sofia_exe>]
 
  ## Arguments:
  
- * `<par_file>`     Name of the SoFiA 2 control parameter file.
- * `<source_list>`  Name of the source catalogue file.
- * `<r_spat>`       Spatial radius of sub-region in pixels.
- * `<r_spec>`       Spectral radius of sub-region in channels.
- * `<sofia_exe>`    Optional name of the SoFiA 2 executable. Default: sofia.
+ * `<par_file>`     Name of the SoFiA 2 control parameter file to be used.
+ * `<source_list>`  Name of the input source catalogue file.
+ * `<r_spat>`       Spatial radius of the sub-region in pixels.
+ * `<r_spec>`       Spectral radius of the sub-region in channels.
+ * `<sofia_exe>`    Optional name of the SoFiA 2 executable. Default: `sofia`.
 
 ## Description
 
