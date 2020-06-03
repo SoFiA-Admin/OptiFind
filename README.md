@@ -1,6 +1,8 @@
 # OptiFind
 
-Python wrapper script for catalogue-based source finding with SoFiA 2
+Python wrapper script for catalogue-based source finding with SoFiA 2.
+Note that the installation of **SoFiA 2** is a prerequisite for OptiFind.
+SoFiA 2 can be obtained from https://github.com/SoFiA-Admin/SoFiA-2.
 
 ## Usage
 
