@@ -87,10 +87,10 @@ def print_instructions():
 	sys.stdout.write(" grees for right ascension and Hz for frequency.\n");
 	sys.stdout.write("\n");
 	sys.stdout.write(" Separate output catalogues and products will be created  for each SoFiA 2 run.\n");
-	sys.stdout.write(" They will be named  either \"optifind\" + suffix or output.filename + suffix de-\n");
-	sys.stdout.write(" pending on whether an output file name was defined in the parameter file.  The\n");
-	sys.stdout.write(" suffix will be an underscore  followed by the source ID  provided in the cata-\n");
-	sys.stdout.write(" logue file.\n");
+	sys.stdout.write(" Their base name will be either \"optifind\" + suffix or output.filename + suffix\n");
+	sys.stdout.write(" depending on whether or not an output file name  was defined  in the parameter\n");
+	sys.stdout.write(" file.  The suffix will be an underscore  followed by the source ID provided in\n");
+	sys.stdout.write(" the catalogue file.\n");
 	sys.stdout.write("\n");
 	sys.stdout.write(" In addition to the individual  output catalogues from each run,  OptiFind will\n");
 	sys.stdout.write(" also create a single, merged catalogue called  \"optifind_merged_catalogue.txt\"\n");
