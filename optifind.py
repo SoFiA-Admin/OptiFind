@@ -111,20 +111,23 @@ if(len(sys.argv) > 5): sofia_2_executable = sys.argv[5];
 else: sofia_2_executable = "sofia";
 
 
-# Try to read parameter file
+# Read parameter file
 pars = {};
-with open(sys.argv[1]) as fp:
-	for line in fp:
-		line = line.strip();
-		if(line and line[0] != "#" and "=" in line):
-			(key, value) = line.split("=", 1);
-			key = key.strip();
-			value = value.strip();
-			if(value):
-				comment = value.find("#");
-				if(comment < 0): pars[key] = value;
-				else: pars[key] = value.split("#", 1)[0].strip();
-			else: pars[key] = "";
+try:
+	with open(sys.argv[1]) as fp:
+		for line in fp:
+			line = line.strip();
+			if(line and line[0] != "#" and "=" in line):
+				(key, value) = line.split("=", 1);
+				key = key.strip();
+				value = value.strip();
+				if(value):
+					comment = value.find("#");
+					if(comment < 0): pars[key] = value;
+					else: pars[key] = value.split("#", 1)[0].strip();
+				else: pars[key] = "";
+except:
+	exit_error("Failed to read parameter file: " + sys.argv[1]);
 
 if(len(pars) == 0): exit_error("No valid parameter settings found.");
 
@@ -135,34 +138,38 @@ try:
 	axis_size = wcs.array_shape;
 	naxes = len(axis_size);
 	axis_type = wcs.axis_type_names;
-	
-	# Work out spatial and spectral axes
-	axes = [-1, -1, -1];
-	for i in range(naxes):
-		if(axis_type[i] == "RA" or axis_type[i] == "GLON"): axes[0] = i;
-		elif(axis_type[i] == "DEC" or axis_type[i] == "GLAT"): axes[1] = i;
-		elif(axis_type[i] == "FREQ" or axis_type[i] == "VELO" or axis_type[i] == "VRAD" or axis_type[i] == "VOPT" or axis_type[i] == "FELO"): axes[2] = i;
-	if(axes[0] == -1 or axes[1] == -1 or axes[2] == -1): exit_error("Failed to identify spatial and/or spectral axis of cube.");
 except:
 	exit_error("Failed to read WCS from input data cube.");
 
 
-# Try to read input catalogue
+# Work out spatial and spectral axes
+axes = [-1, -1, -1];
+for i in range(naxes):
+	if(axis_type[i] == "RA" or axis_type[i] == "GLON"): axes[0] = i;
+	elif(axis_type[i] == "DEC" or axis_type[i] == "GLAT"): axes[1] = i;
+	elif(axis_type[i] == "FREQ" or axis_type[i] == "VELO" or axis_type[i] == "VRAD" or axis_type[i] == "VOPT" or axis_type[i] == "FELO"): axes[2] = i;
+if(axes[0] == -1 or axes[1] == -1 or axes[2] == -1): exit_error("Failed to identify spatial and/or spectral axis of data cube.");
+
+
+# Read input catalogue
 sources = [];
 n_cols = 0;
-with open(sys.argv[2]) as fp:
-	for line in fp:
-		line = line.strip();
-		if(line and line[0] != "#"):
-			cols = line.split(",");
-			if(n_cols != len(cols)):
-				if(n_cols > 0): exit_error("Varying number of catalogue columns encountered.");
-				else: n_cols = len(cols);
-			cols = [item.strip() for item in cols];
-			sources.append(cols);
+try:
+	with open(sys.argv[2]) as fp:
+		for line in fp:
+			line = line.strip();
+			if(line and line[0] != "#"):
+				cols = line.split(",");
+				if(n_cols != len(cols)):
+					if(n_cols > 0): exit_error("Variable number of catalogue columns encountered.");
+					else: n_cols = len(cols);
+				cols = [item.strip() for item in cols];
+				sources.append(cols);
+except:
+	exit_error("Failed to read input catalogue: " + sys.argv[2]);
 
 if(len(sources) == 0): exit_error("No sources found in input catalogue.");
-if(n_cols != naxes + 1): exit_error("Data cube is {:d}D, but {:d} coordinate values given in catalogue!".format(naxes, n_cols - 1));
+if(n_cols != naxes + 1): exit_error("Data cube is {:d}D, but {:d} coordinate values given in catalogue.".format(naxes, n_cols - 1));
 
 
 # Loop over all sources
@@ -200,11 +207,14 @@ for src in sources:
 		pars_copy["parameter.offset"] = "true";
 		
 		# Write temporary parameter file
-		with open("sofia_optifind_parameter_file.tmp", "w") as fp:
-			for key in pars_copy:
-				fp.write("{}\t=\t{}\n".format(key, pars_copy[key]));
+		try:
+			with open("sofia_optifind_parameter_file.tmp", "w") as fp:
+				for key in pars_copy:
+					fp.write("{}\t=\t{}\n".format(key, pars_copy[key]));
+		except:
+			exit_error("Failed to write temporary SoFiA 2 parameter file. Is the\n       current working directory write-protected?");
 		
-		# Run SoFiA and delete temporary parameter file
+		# Run SoFiA and delete temporary parameter file again
 		os.system("{} sofia_optifind_parameter_file.tmp".format(sofia_2_executable));
 		os.system("rm -f sofia_optifind_parameter_file.tmp");
 
@@ -215,8 +225,6 @@ if(n):
 	# Figure out where the catalogue files are
 	output_dir = pars["output.directory"];
 	fmt_plain  = pars["output.writeCatASCII"];
-	#fmt_xml    = pars["output.writeCatXML"];
-	#fmt_sql    = pars["output.writeCatSQL"];
 	
 	if(output_dir and output_dir[-1] != "/"): output_dir += "/";
 	
@@ -228,14 +236,20 @@ if(n):
 		
 		for item in cat_names:
 			# Read catalogue
-			with open(output_dir + item + "_cat.txt") as fp:
-				for line in fp:
-					if(need_header and line and line[0] == "#"): header += line;
-					if(line and not line.isspace() and line[0] != "#"): content += line;
+			try:
+				with open(output_dir + item + "_cat.txt") as fp:
+					for line in fp:
+						if(need_header and line and line[0] == "#"): header += line;
+						if(line and not line.isspace() and line[0] != "#"): content += line;
+			except:
+				exit_error("Failed to read SoFiA 2 catalogue: " + output_dir + item + "_cat.txt");
 			
 			if(need_header and header): need_header = False;
 		
 		# Create output catalogue
-		with open(output_dir + "optifind_merged_catalogue.txt", "w") as fp:
-			fp.write(header + "\n");
-			fp.write(content);
+		try:
+			with open(output_dir + "optifind_merged_catalogue.txt", "w") as fp:
+				fp.write(header + "\n");
+				fp.write(content);
+		except:
+			exit_error("Failed to write merged output catalogue. Is the\n       current working directory write-protected?");
