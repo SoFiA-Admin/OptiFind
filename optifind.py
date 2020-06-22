@@ -135,7 +135,8 @@ if(len(pars) == 0): exit_error("No valid parameter settings found.");
 # Read WCS from input cube header
 try:
 	wcs = WCS(pars["input.data"]);
-	axis_size = wcs.array_shape;
+	axis_size = wcs.array_shape[::-1];
+	# NOTE: Need to reverse order here, as otherwise inconsistent with order of wcs.axis_type_names!!!
 	naxes = len(axis_size);
 	axis_type = wcs.axis_type_names;
 except:
@@ -217,6 +218,8 @@ for src in sources:
 		# Run SoFiA and delete temporary parameter file again
 		os.system("{} sofia_optifind_parameter_file.tmp".format(sofia_2_executable));
 		os.system("rm -f sofia_optifind_parameter_file.tmp");
+	else:
+		print("Skipping source \"{}\": outside bounds.".format(src[0]));
 
 
 # Merge output catalogues
